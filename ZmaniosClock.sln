@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZmaniosClock", "ZmaniosClock\ZmaniosClock.csproj", "{DC83455B-AE0D-45C7-BD68-DB28BAB63B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZmaniosClock", "ZmaniosClock\ZmaniosClock.csproj", "{DC83455B-AE0D-45C7-BD68-DB28BAB63B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JewishCalendar", "..\..\JewishCalendar\JewishCalendar\JewishCalendar.csproj", "{43E5C945-9D11-4097-9990-1D2AFC9E16D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JewishCalendar", "..\JewishCalendar\JewishCalendar\JewishCalendar.csproj", "{43E5C945-9D11-4097-9990-1D2AFC9E16D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
