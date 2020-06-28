@@ -1,16 +1,16 @@
-﻿using System;
+﻿using JewishCalendar;
+using System;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
-using JewishCalendar;
 
 
 namespace ZmaniosClock
 {
     public partial class Form1 : Form
     {
-        private readonly Location _location;
+        private Location _location;
         private DateTime _today = DateTime.Now;
         private DateTime _now;
         private JewishDate _jdate;
@@ -40,23 +40,43 @@ namespace ZmaniosClock
             SetDoubleBuffered(this.panel2);
             SetDoubleBuffered(this.panel3);
             this._now = this._today;
-            _location = new Location("Modiin Illit", 2, 31.932622, -35.042898)
+            var name = Properties.Settings.Default.LocationName;
+            this._location = Program.LocationsList.FirstOrDefault(l => l.Name == name);
+            if(this._location == null)
             {
-                Elevation = 340,
-                IsInIsrael = true
-            };
+                this._location = Program.LocationsList.FirstOrDefault(l => l.Name == "Jerusalem");
+            }
+            this.cmbLocations.DataSource = Program.LocationsList;
+            this.cmbLocations.SelectedItem = this._location;
+            this.Text = "Zmanios Clock - " + this._location.Name;
+
         }
 
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.timer2.Start();
-            this.SetZmanim();            
+            this.SetZmanim();
+            this.cmbLocations.SelectedIndexChanged += new System.EventHandler(this.cmbLocations_SelectedIndexChanged);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void cmbLocations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var location = Program.LocationsList.FirstOrDefault(l => l.Name == this.cmbLocations.Text);
+            if(location != null && location.Name != this._location.Name)
+            {
+                this._location = location;
+                Properties.Settings.Default.LocationName = location.Name;
+                Properties.Settings.Default.Save();
+                this.Text = "Zmanios Clock - " + this._location.Name;
+                this.SetZmanim();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

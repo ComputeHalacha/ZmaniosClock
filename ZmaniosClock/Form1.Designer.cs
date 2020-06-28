@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cmbLocations = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.button2 = new System.Windows.Forms.Button();
@@ -96,22 +97,34 @@
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.richTextBox1.ForeColor = System.Drawing.Color.LightSalmon;
-            this.richTextBox1.Location = new System.Drawing.Point(43, 15);
+            this.richTextBox1.Location = new System.Drawing.Point(43, 45);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(511, 195);
+            this.richTextBox1.Size = new System.Drawing.Size(511, 208);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.cmbLocations);
             this.panel2.Controls.Add(this.richTextBox1);
             this.panel2.Location = new System.Drawing.Point(12, 204);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(591, 227);
+            this.panel2.Size = new System.Drawing.Size(591, 270);
             this.panel2.TabIndex = 2;
             this.panel2.Visible = false;
+            // 
+            // cmbLocations
+            // 
+            this.cmbLocations.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbLocations.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbLocations.DisplayMember = "Name";
+            this.cmbLocations.FormattingEnabled = true;
+            this.cmbLocations.Location = new System.Drawing.Point(43, 10);
+            this.cmbLocations.Name = "cmbLocations";
+            this.cmbLocations.Size = new System.Drawing.Size(511, 28);
+            this.cmbLocations.TabIndex = 2;
             // 
             // panel3
             // 
@@ -175,6 +188,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox cmbLocations;
     }
 }
 
