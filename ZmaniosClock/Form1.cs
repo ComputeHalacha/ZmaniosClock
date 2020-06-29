@@ -1,6 +1,7 @@
 ﻿using JewishCalendar;
 using System;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -10,6 +11,8 @@ namespace ZmaniosClock
 {
     public partial class Form1 : Form
     {
+        private PrivateFontCollection _pvc = new PrivateFontCollection();
+        StringFormat _format = new StringFormat();        
         private Location _location;
         private DateTime _today = DateTime.Now;
         private DateTime _now;
@@ -32,7 +35,7 @@ namespace ZmaniosClock
                 cp.ExStyle |= 0x02000000;
                 return cp;
             }
-        }        
+        }
         public Form1()
         {
             InitializeComponent();
@@ -42,7 +45,15 @@ namespace ZmaniosClock
             this._now = this._today;
             var name = Properties.Settings.Default.LocationName;
             this._location = Program.LocationsList.FirstOrDefault(l => l.Name == name);
-            if(this._location == null)
+            int fontLength = Properties.Resources.Quartz.Length;
+            byte[] fontdata = Properties.Resources.Quartz;
+            IntPtr data = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontLength);
+            System.Runtime.InteropServices.Marshal.Copy(fontdata, 0, data, fontLength);
+            this._pvc.AddMemoryFont(data, fontLength);
+            this._format.LineAlignment = StringAlignment.Center;
+            this._format.Alignment = StringAlignment.Center;
+
+            if (this._location == null)
             {
                 this._location = Program.LocationsList.FirstOrDefault(l => l.Name == "Jerusalem");
             }
@@ -58,7 +69,8 @@ namespace ZmaniosClock
             this.timer2.Start();
             this.SetZmanim();
             this.cmbLocations.SelectedIndexChanged += new System.EventHandler(this.cmbLocations_SelectedIndexChanged);
-
+            this.panel3.Font = new Font(this._pvc.Families[0], this.panel3.Font.Size);
+            this.panel1.Font = new Font(this._pvc.Families[0], 82);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,7 +81,7 @@ namespace ZmaniosClock
         private void cmbLocations_SelectedIndexChanged(object sender, EventArgs e)
         {
             var location = Program.LocationsList.FirstOrDefault(l => l.Name == this.cmbLocations.Text);
-            if(location != null && location.Name != this._location.Name)
+            if (location != null && location.Name != this._location.Name)
             {
                 this._location = location;
                 Properties.Settings.Default.LocationName = location.Name;
@@ -81,7 +93,7 @@ namespace ZmaniosClock
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(this.panel2.Visible)
+            if (this.panel2.Visible)
             {
                 this.panel2.Visible = false;
                 this.Height -= (panel2.Height + 20);
@@ -91,8 +103,7 @@ namespace ZmaniosClock
                 this.panel2.Visible = true;
                 this.Height += (panel2.Height + 20);
             }
-        }
-
+        }       
 
         private void SetZmanim()
 
@@ -142,7 +153,17 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+
+            this.panel1.Invalidate();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            this.panel3.Invalidate();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
             double hour, minute, second;
             this._now = DateTime.Now;
             if (this._now.Day != this._today.Day)
@@ -180,16 +201,13 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
                 second = (sinceShkia % this._zmaniosNighttimeSecondsPerMinute) /
                     this._zmaniosNighttimeSecondsPerSecond;
             }
-            this.label1.Text = $"{(int)hour:D2}:{(int)minute:D2}:{(int)second:D2}";            
+            e.Graphics.DrawString($"{(int)hour:D2}:{(int)minute:D2}:{(int)second:D2}",
+                this.panel1.Font, Brushes.Red, this.panel1.ClientRectangle, this._format);
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            this.panel3.Invalidate();
-        }
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString(this._now.ToString("HH:mm:ss"), this.panel3.Font, Brushes.Lime, 0, 0);
+            e.Graphics.DrawString(this._now.ToString("HH:mm:ss"), this.panel3.Font, Brushes.Lime,this.panel3.ClientRectangle, this._format);
         }
 
         private static void SetDoubleBuffered(Control c)

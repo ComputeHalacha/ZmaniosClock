@@ -68,5 +68,15 @@ namespace ZmaniosClock.Properties {
                 return ResourceManager.GetString("LocationsList", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Quartz {
+            get {
+                object obj = ResourceManager.GetObject("Quartz", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
