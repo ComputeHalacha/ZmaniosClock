@@ -12,7 +12,7 @@ namespace ZmaniosClock
     public partial class Form1 : Form
     {
         private PrivateFontCollection _pvc = new PrivateFontCollection();
-        StringFormat _format = new StringFormat();        
+        StringFormat _format = new StringFormat();
         private Location _location;
         private DateTime _today = DateTime.Now;
         private DateTime _now;
@@ -60,6 +60,15 @@ namespace ZmaniosClock
             this.cmbLocations.DataSource = Program.LocationsList;
             this.cmbLocations.SelectedItem = this._location;
             this.Text = "Zmanios Clock - " + this._location.Name;
+            if (Properties.Settings.Default.OpenPanel)
+            {
+                this.panel2.Visible = true;                
+            }
+            else
+            {
+                this.panel2.Visible = false;
+                this.Height -= (panel2.Height + 20);
+            }            
 
         }
 
@@ -97,13 +106,16 @@ namespace ZmaniosClock
             {
                 this.panel2.Visible = false;
                 this.Height -= (panel2.Height + 20);
+                Properties.Settings.Default.OpenPanel = false;                
             }
             else
             {
                 this.panel2.Visible = true;
                 this.Height += (panel2.Height + 20);
+                Properties.Settings.Default.OpenPanel = true;
             }
-        }       
+            Properties.Settings.Default.Save();
+        }
 
         private void SetZmanim()
 
@@ -207,7 +219,8 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString(this._now.ToString("HH:mm:ss"), this.panel3.Font, Brushes.Lime,this.panel3.ClientRectangle, this._format);
+            this._now = DateTime.Now;
+            e.Graphics.DrawString(this._now.ToString("HH:mm:ss"), this.panel3.Font, Brushes.Lime, this.panel3.ClientRectangle, this._format);
         }
 
         private static void SetDoubleBuffered(Control c)

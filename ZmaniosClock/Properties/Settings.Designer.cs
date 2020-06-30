@@ -34,5 +34,17 @@ namespace ZmaniosClock.Properties {
                 this["LocationName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OpenPanel {
+            get {
+                return ((bool)(this["OpenPanel"]));
+            }
+            set {
+                this["OpenPanel"] = value;
+            }
+        }
     }
 }
