@@ -97,9 +97,9 @@
             this.cmbLocations.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbLocations.ForeColor = System.Drawing.Color.SlateGray;
             this.cmbLocations.FormattingEnabled = true;
-            this.cmbLocations.Location = new System.Drawing.Point(0, 245);
+            this.cmbLocations.Location = new System.Drawing.Point(0, 252);
             this.cmbLocations.Name = "cmbLocations";
-            this.cmbLocations.Size = new System.Drawing.Size(591, 38);
+            this.cmbLocations.Size = new System.Drawing.Size(591, 31);
             this.cmbLocations.TabIndex = 2;
             // 
             // panel3
@@ -162,6 +162,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zmanios Clock";
