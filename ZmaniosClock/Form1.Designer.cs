@@ -38,6 +38,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.button2 = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,14 +108,15 @@
             this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.panel3.ForeColor = System.Drawing.Color.Lime;
-            this.panel3.Location = new System.Drawing.Point(232, 151);
+            this.panel3.Location = new System.Drawing.Point(60, 158);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(150, 32);
+            this.panel3.Size = new System.Drawing.Size(247, 32);
             this.panel3.TabIndex = 3;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // timer2
             // 
+            this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // button2
@@ -132,10 +135,28 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // panel4
+            // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.panel4.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel4.Location = new System.Drawing.Point(307, 158);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(247, 32);
+            this.panel4.TabIndex = 3;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // timer3
+            // 
+            this.timer3.Interval = 67;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
             // Form1
             // 
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(615, 504);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -160,6 +181,8 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox cmbLocations;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Timer timer3;
     }
 }
 

@@ -42,6 +42,7 @@ namespace ZmaniosClock
             SetDoubleBuffered(this.panel1);
             SetDoubleBuffered(this.panel2);
             SetDoubleBuffered(this.panel3);
+            SetDoubleBuffered(this.panel4);
             this._now = this._today;
             var name = Properties.Settings.Default.LocationName;
             this._location = Program.LocationsList.FirstOrDefault(l => l.Name == name);
@@ -76,9 +77,11 @@ namespace ZmaniosClock
         private void Form1_Load(object sender, EventArgs e)
         {
             this.timer2.Start();
+            this.timer3.Start();
             this.SetZmanim();
             this.cmbLocations.SelectedIndexChanged += new System.EventHandler(this.cmbLocations_SelectedIndexChanged);
             this.panel3.Font = new Font(this._pvc.Families[0], this.panel3.Font.Size);
+            this.panel4.Font = new Font(this._pvc.Families[0], this.panel4.Font.Size);
             this.panel1.Font = new Font(this._pvc.Families[0], 82);
         }
 
@@ -115,7 +118,7 @@ namespace ZmaniosClock
                 Properties.Settings.Default.OpenPanel = true;
             }
             Properties.Settings.Default.Save();
-        }
+        }        
 
         private void SetZmanim()
 
@@ -161,7 +164,7 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
             }
 
             this.timer1.Start();
-        }
+        }        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -172,6 +175,11 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
         private void timer2_Tick(object sender, EventArgs e)
         {
             this.panel3.Invalidate();
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            this.panel4.Invalidate();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -221,6 +229,13 @@ Hour Zmanios Night: {this._zmaniosNighttimeSecondsPerHour / 60:N2}  minutes";
         {
             this._now = DateTime.Now;
             e.Graphics.DrawString(this._now.ToString("HH:mm:ss"), this.panel3.Font, Brushes.Lime, this.panel3.ClientRectangle, this._format);
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+            this._now = DateTime.Now;
+            DegreeTime dt = new DegreeTime(this._now);
+            e.Graphics.DrawString(dt.ToMediumString(), this.panel4.Font, Brushes.DeepSkyBlue, this.panel4.ClientRectangle, this._format);
         }
 
         private static void SetDoubleBuffered(Control c)
